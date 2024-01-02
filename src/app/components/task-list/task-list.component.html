@@ -1,0 +1,53 @@
+@for(task of tasks; track task.id; let index = $index) {
+  <div class="row">
+    @if (task.isEditing) {
+      {{taskTitle.focus()}}
+      <div class="edit-title">
+        <input
+          #taskTitle
+          class="text-sm rounded-md task-input"
+          id="new-task"
+          placeholder="Enter new task here..."
+          [value]="task.title"
+          (keyup.enter)="saveTask(task, taskTitle.value)"
+          (keyup.escape)="task.isEditing = false"
+          (focusout)="task.isEditing = false"
+          autofocus
+        >
+      </div>
+      <div class="edit-actions">
+        <span class="material-symbols-outlined task-action confirm" (click)="saveTask(task, taskTitle.value)">
+          check
+        </span>
+        <span class="material-symbols-outlined task-action cancel" (click)="task.isEditing = false">
+          cancel
+        </span>
+      </div>
+    } @else {
+      <div class="task-title">
+        <label class="text-sm font-medium text-gray-700">
+          <input type="checkbox" class="task-status" [checked]="task.isDone">
+          <span>{{task.title}}</span>
+        </label>
+      </div>
+      <div class="task-actions">
+        <span class="material-symbols-outlined task-action edit" (click)="openEditTask(task)">
+          border_color
+        </span>
+        <span class="material-symbols-outlined task-action delete" (click)="deleteTask(index)">
+          delete
+        </span>
+      </div>
+    }
+  </div>
+} @empty {
+  <div class="no-task">
+    <span class="material-symbols-outlined text-gray icon">
+      sentiment_dissatisfied
+    </span>
+    <h2 class="text-lg font-medium text-gray-700 title">No tasks yet</h2>
+    <p class="text-gray hint">Start by adding a new task above</p>
+  </div>
+}
+
+

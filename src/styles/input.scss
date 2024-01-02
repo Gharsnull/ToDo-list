@@ -1,0 +1,9 @@
+.task-input {
+  padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+  border: 1px solid rgb(209,213,219);
+
+  &:focus {
+    outline: none;
+    border: 1px solid rgb(156,163,175);
+  }
+}

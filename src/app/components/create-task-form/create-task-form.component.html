@@ -1,0 +1,9 @@
+<label class="text-sm font-medium" for="new-task">Add new Task</label>
+<input
+  class="text-sm rounded-md task-input"
+  id="new-task"
+  placeholder="Enter new task here..."
+  [(ngModel)]="newTask"
+  (keyup.enter)="addTask()"
+>
+<button class="font-medium text-sm rounded-md submit-task-button" (click)="addTask()">Add Task</button>
