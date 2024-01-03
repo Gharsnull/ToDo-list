@@ -1,18 +1,29 @@
 import { Routes } from '@angular/router';
 import { MainComponent } from './pages/main/main.component';
 import { PageWrapperComponent } from './pages/page-wrapper/page-wrapper.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+
+const redirectLoggedUsers = () => redirectLoggedInTo(['']);
+const redirectUnauthorized = () => redirectUnauthorizedTo(['login'])
 
 export const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: PageWrapperComponent,
     children: [
       {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: [AuthGuard],
+        data: { authGuardPipe: redirectLoggedUsers}
+      },
+      {
         path: '',
         component: MainComponent,
-        pathMatch: 'full'
-      }
+        canActivate:[AuthGuard],
+        data: { authGuardPipe: redirectUnauthorized}
+      },
     ]
   }
 ];

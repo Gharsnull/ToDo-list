@@ -1,0 +1,40 @@
+.wrapper {
+  display: block;
+  padding: 1rem;
+  max-height: 230px;
+
+  .header {
+    padding: 1.5rem 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+  }
+}
+
+.login-button {
+  cursor: pointer;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background-color: rgb(24,24,27);
+  color: white;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  height: 2.75rem;
+  width: fit-content;
+  border: none;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+  }
+}
