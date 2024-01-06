@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SectionWrapperComponent } from '../../components/section-wrapper/section-wrapper.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',

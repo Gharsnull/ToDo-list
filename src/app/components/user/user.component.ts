@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { NgOptimizedImage } from '@angular/common';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { MENU_POSITION } from './user.constants';

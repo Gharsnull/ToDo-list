@@ -1,24 +1,54 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, signal, WritableSignal } from '@angular/core';
 import { Task } from '../../common/models';
 import { FormsModule } from '@angular/forms';
+import { TaskService } from '../../services/task/task.service';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import { FILTER_MENU_POSITION, STATUS_FILTER_OPTIONS } from './task-list.constants';
+import { CustomSelectComponent } from '../custom-select/custom-select.component';
+import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { ListFilterComponent } from './list-filter/list-filter.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    AsyncPipe,
+    JsonPipe,
+    CdkMenu,
+    CdkMenuTrigger,
+    CdkMenuItem,
+    CustomSelectComponent,
+    CdkOverlayOrigin,
+    CdkConnectedOverlay,
+    ListFilterComponent
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
-  host: { class: 'divide-y divide-gray-200' },
 })
 export class TaskListComponent {
-  @Input() tasks: Task[] = [];
+  protected readonly FILTER_MENU_POSITION = FILTER_MENU_POSITION;
+  private readonly tasks = this.taskService.tasks;
+
+  filteredTasks = computed(() => this.tasks().filter((t) => {
+    let result = true;
+    if(!!this.titleFilter()) {
+      result &&= !!t.title.match(this.titleFilter())
+    }
+
+    if(this.statusFilter() !== null) {
+      result &&= t.isDone === this.statusFilter()
+    }
+    return result;
+  }));
+  titleFilter:WritableSignal<string> = signal('');
+  statusFilter:WritableSignal<boolean | null> = signal(null);
+
+  constructor(private readonly taskService: TaskService) {
+  }
 
   openEditTask(task: Task) {
-    this.tasks.forEach(t => {
-      t.isEditing = t === task
-    })
   }
 
   saveTask(task: Task, newValue: string) {
@@ -29,7 +59,8 @@ export class TaskListComponent {
   }
 
   deleteTask(index: number) {
-    this.tasks.splice(index, 1)
+    // this.tasks().splice(index, 1)
   }
 
+  protected readonly STATUS_FILTER_OPTIONS = STATUS_FILTER_OPTIONS;
 }

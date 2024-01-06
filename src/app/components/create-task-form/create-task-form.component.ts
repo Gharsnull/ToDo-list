@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Task } from '../../common/models';
+import { TaskService } from '../../services/task/task.service';
 
 @Component({
   selector: 'app-create-task-form',
@@ -12,15 +12,14 @@ import { Task } from '../../common/models';
   styleUrl: './create-task-form.component.scss'
 })
 export class CreateTaskFormComponent {
-  @Input() tasks: Task[] = [];
-
   newTask: string = '';
+
+  constructor(private readonly taskService: TaskService) {
+  }
 
   addTask() {
     if (this.newTask) {
-      this.tasks.push({
-        title: this.newTask
-      });
+      this.taskService.addTask(this.newTask);
       this.newTask = '';
     }
   }

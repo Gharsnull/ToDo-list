@@ -1,0 +1,31 @@
+<span
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin"
+  class="material-symbols-outlined filter-button"
+  (click)="toggleOverlay()"
+>
+  filter_alt
+</span>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOpen"
+  [cdkConnectedOverlayPositions]="OVERLAY_POSITION"
+  (overlayOutsideClick)="toggleOverlay()"
+>
+  <div class="menu">
+    <div class="menu-item">
+      <div class="title-filter">
+        <label class="text-sm font-medium">Title</label>
+        <input #titleInput [ngModel]="titleFilter()" (input)="updateFilter(titleFilter, titleInput.value)" class="text-sm title-input" placeholder="Filter by title..."/>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="status-filter">
+        <label class="text-sm font-medium">Status</label>
+        <app-select [options]="STATUS_FILTER_OPTIONS" [value]="statusFilter()" (changeSelection)="updateFilter(statusFilter, $event)"></app-select>
+      </div>
+    </div>
+  </div>
+</ng-template>

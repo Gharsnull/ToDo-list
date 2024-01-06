@@ -3,13 +3,15 @@ import { Router } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { getAuth, signInWithPopup, signOut, user, User } from '@angular/fire/auth';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly afAuth = getAuth();
-  user = toSignal<User|null>(user(this.afAuth));
+  user = toSignal(user(this.afAuth) as Observable<User>, { initialValue: { uid: '' } as User });
+  userTest = this.afAuth.currentUser!;
   loggedIn = computed(() => !!this.user())
 
   constructor(

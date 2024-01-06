@@ -1,0 +1,24 @@
+<div
+  #select
+  (click)="isOpen = !isOpen"
+  class="text-sm select"
+  [cdkMenuTriggerFor]="optionsMenu"
+  [cdkMenuPosition]="LIST_POSITION"
+>
+  <span>{{selectedOption.label}}</span>
+
+  <span class="material-symbols-outlined">
+    expand_more
+  </span>
+</div>
+
+<ng-template #optionsMenu>
+  <div class="option-list divide-y divide-gray-200" cdkMenu>
+    @for (option of options; track option) {
+      <div cdkMenuItem class="select-option" (click)="changeSelection.emit(option.value)">
+        <!-- workaround to conserve same size as button -->
+        <span>{{option.label}}</span>
+      </div>
+    }
+  </div>
+</ng-template>
