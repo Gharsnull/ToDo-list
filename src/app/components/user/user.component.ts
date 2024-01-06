@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgOptimizedImage } from '@angular/common';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { MENU_POSITION } from './user.constants';
 
@@ -9,7 +9,9 @@ import { MENU_POSITION } from './user.constants';
   standalone: true,
   imports: [
     NgOptimizedImage,
-    CdkMenuModule
+    CdkMenuModule,
+    AsyncPipe,
+    JsonPipe
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'

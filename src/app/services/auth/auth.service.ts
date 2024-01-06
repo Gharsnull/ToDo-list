@@ -1,30 +1,37 @@
-import { computed, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { getAuth, signInWithPopup, signOut, user, User } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged, signInWithPopup, signOut, User } from '@angular/fire/auth';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly afAuth = getAuth();
-  user = toSignal(user(this.afAuth) as Observable<User>, { initialValue: { uid: '' } as User });
-  userTest = this.afAuth.currentUser!;
-  loggedIn = computed(() => !!this.user())
+  readonly afAuth = getAuth();
+  private readonly _user = new BehaviorSubject<User|null>(null)
+  readonly user = toSignal(this._user);
 
   constructor(
     private readonly router: Router,
-  ) {}
+  ) {
+    onAuthStateChanged(this.afAuth, (user) => {
+      this._user.next(user);
 
-  async googleSignin(): Promise<boolean> {
-    await signInWithPopup(this.afAuth, new GoogleAuthProvider());
-    return this.router.navigate(['/']);
+      if(!user) {
+        return this.router.navigate(['/login'])
+      }
+
+      return this.router.navigate(['/'])
+    });
   }
 
-  async signOut(): Promise<boolean> {
-    await signOut(this.afAuth);
-    return this.router.navigate(['/login']);
+  googleSignIn() {
+    void signInWithPopup(this.afAuth, new GoogleAuthProvider());
+  }
+
+  signOut() {
+    void signOut(this.afAuth);
   }
 }

@@ -16,7 +16,6 @@
   <div class="option-list divide-y divide-gray-200" cdkMenu>
     @for (option of options; track option) {
       <div cdkMenuItem class="select-option" (click)="changeSelection.emit(option.value)">
-        <!-- workaround to conserve same size as button -->
         <span>{{option.label}}</span>
       </div>
     }

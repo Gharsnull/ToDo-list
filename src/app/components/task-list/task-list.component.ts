@@ -41,11 +41,12 @@ export class TaskListComponent {
       result &&= t.isDone === this.statusFilter()
     }
     return result;
-  }));
+  }).sort((a,b) => +b.createdAt - +a.createdAt));
+
   titleFilter:WritableSignal<string> = signal('');
   statusFilter:WritableSignal<boolean | null> = signal(null);
 
-  constructor(private readonly taskService: TaskService) {
+  constructor(readonly taskService: TaskService) {
   }
 
   openEditTask(task: Task) {
