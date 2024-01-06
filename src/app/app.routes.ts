@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
-import { MainComponent } from './pages/main/main.component';
 import { PageWrapperComponent } from './pages/page-wrapper/page-wrapper.component';
-import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 const redirectLoggedUsers = () => redirectLoggedInTo(['']);
@@ -14,13 +12,13 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
-        component: LoginComponent,
+        loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent),
         canActivate: [AuthGuard],
         data: { authGuardPipe: redirectLoggedUsers}
       },
       {
         path: '',
-        component: MainComponent,
+        loadComponent: () => import('./pages/main/main.component').then(m => m.MainComponent),
         canActivate:[AuthGuard],
         data: { authGuardPipe: redirectUnauthorized}
       },
