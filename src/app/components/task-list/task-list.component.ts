@@ -50,17 +50,18 @@ export class TaskListComponent {
   }
 
   openEditTask(task: Task) {
+    task.isEditing = true;
   }
 
-  saveTask(task: Task, newValue: string) {
-    if(!newValue) return;
+  async saveTask(task: Task, { title, isDone }: Partial<Task>) {
+    if(!title && isDone === undefined) return;
 
-    task.title = newValue;
-    task.isEditing = false
+    await this.taskService.updateTask(task.id!, {title, isDone})
+    task.isEditing = false;
   }
 
-  deleteTask(index: number) {
-    // this.tasks().splice(index, 1)
+  deleteTask(task: Task) {
+    this.taskService.deleteTask(task.id!)
   }
 
   protected readonly STATUS_FILTER_OPTIONS = STATUS_FILTER_OPTIONS;

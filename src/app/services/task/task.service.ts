@@ -1,6 +1,16 @@
 import { effect, inject, Injectable } from '@angular/core';
-import { addDoc, collection, Firestore, onSnapshot, query, where } from '@angular/fire/firestore';
-import { Task } from '../../common/models';
+import {
+  addDoc,
+  collection,
+  Firestore,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+  doc,
+  deleteDoc
+} from '@angular/fire/firestore';
+import { DbTask, Task } from '../../common/models';
 import { AuthService } from '../auth/auth.service';
 import { fromFirestore, toFirestore } from './task.helper';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -37,5 +47,27 @@ export class TaskService {
 
   addTask(title: string) {
     void addDoc(this.taskCollection, { title } as Partial<Task>);
+  }
+
+  async updateTask(id: string, {title, isDone}: Partial<Task>) {
+    const taskRef = doc(this.taskCollection, id);
+
+    let updateObject: Partial<DbTask> = {};
+    if(!!title) {
+      updateObject.title = title;
+    }
+
+    if(isDone !== undefined) {
+      updateObject.isDone = isDone;
+    }
+
+    if(Object.keys(updateObject)?.length) {
+      await updateDoc(taskRef, updateObject);
+    }
+  }
+
+  deleteTask(id: string) {
+    const taskRef = doc(this.taskCollection, id);
+    void deleteDoc(taskRef)
   }
 }

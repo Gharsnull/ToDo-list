@@ -16,14 +16,14 @@
             id="new-task"
             placeholder="Enter new task here..."
             [value]="task.title"
-            (keyup.enter)="saveTask(task, taskTitle.value)"
+            (keyup.enter)="saveTask(task, {title: taskTitle.value})"
             (keyup.escape)="task.isEditing = false"
             (focusout)="task.isEditing = false"
             autofocus
           >
         </div>
         <div class="edit-actions">
-        <span class="material-symbols-outlined task-action confirm" (click)="saveTask(task, taskTitle.value)">
+        <span class="material-symbols-outlined task-action confirm" (click)="saveTask(task, {title: taskTitle.value})">
           check
         </span>
           <span class="material-symbols-outlined task-action cancel" (click)="task.isEditing = false">
@@ -33,15 +33,15 @@
       } @else {
         <div class="task-title">
           <label class="text-sm font-medium text-gray-700">
-            <input type="checkbox" class="task-status" [checked]="task.isDone">
+            <input #checkbox type="checkbox" class="task-status" [checked]="task.isDone" (change)="saveTask(task, {isDone: checkbox.checked})">
             <span>{{task.title}}</span>
           </label>
         </div>
         <div class="task-actions">
-        <span class="material-symbols-outlined task-action edit" (click)="openEditTask(task)">
+        <span class="material-symbols-outlined task-action edit" (click)="task.isEditing = true">
           border_color
         </span>
-          <span class="material-symbols-outlined task-action delete" (click)="deleteTask(index)">
+          <span class="material-symbols-outlined task-action delete" (click)="deleteTask(task)">
           delete
         </span>
         </div>
