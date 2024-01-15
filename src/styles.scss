@@ -50,3 +50,17 @@ button, select {
     border-color: rgb(229, 231, 235, 1);
   }
 }
+
+
+
+.menu {
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  color: black;
+  padding: 0.25rem;
+  background-color: white;
+  border-width: 1px;
+  border-radius: 0.375rem;
+  border-style: solid;
+  border-color: #e5e7eb;
+  min-width: 8rem;
+}

@@ -1,20 +1,19 @@
-import { effect, inject, Injectable } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   Firestore,
   onSnapshot,
   query,
+  Unsubscribe,
   updateDoc,
   where,
-  doc,
-  deleteDoc
 } from '@angular/fire/firestore';
 import { DbTask, Task } from '../../common/models';
 import { AuthService } from '../auth/auth.service';
 import { fromFirestore, toFirestore } from './task.helper';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +26,9 @@ export class TaskService {
     fromFirestore: fromFirestore(),
   };
   private readonly taskCollection = collection(this.firestore, 'task').withConverter(this.TASK_CONVERTER);
-  private readonly _tasks = new BehaviorSubject<Task[]>([]);
+  private unsubscribeSnapshot: Unsubscribe;
 
-  readonly tasks = toSignal(this._tasks, { initialValue: <Task[]>[]});
+  readonly tasks = signal<Task[]>([]);
 
   constructor() {
     effect(() => {
@@ -38,9 +37,11 @@ export class TaskService {
           this.taskCollection,
           where('createdBy', '==', this.authService.user()!.uid)
         );
-        onSnapshot(userQuery, (snapshot) => {
-          this._tasks.next(snapshot.docs.map((x)=> x.data() as Task))
+        this.unsubscribeSnapshot = onSnapshot(userQuery, (snapshot) => {
+          this.tasks.set(snapshot.docs.map((x)=> x.data() as Task))
         })
+      } else {
+        this.unsubscribeSnapshot();
       }
     });
   }

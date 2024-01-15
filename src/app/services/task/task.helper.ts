@@ -28,8 +28,8 @@ export function fromFirestore() {
     return {
       ...data,
       id: snapshot.id,
-      createdAt: data.createdAt.toDate(),
-      updatedAt: data.updatedAt.toDate(),
+      createdAt: data.createdAt?.toDate()!,
+      updatedAt: data.updatedAt?.toDate()!,
       isEditing: false};
   }
 }

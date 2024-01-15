@@ -22,16 +22,8 @@
 
 
 .menu {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  min-width: 180px;
-  max-width: 280px;
-  //padding: 6px 0;
-  background-color: white;
-  box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  border-width: 1px;
-  border-radius: 0.75rem;
-  margin-top: 10px
 }
 
 .menu-item,
@@ -39,11 +31,12 @@
   background-color: transparent;
   cursor: pointer;
   border: none;
-  border-radius: 0.75rem;
   user-select: none;
   min-width: 64px;
   line-height: 36px;
   padding: 0 16px;
+
+  width: 100%;
 
   display: flex;
   align-items: center;
@@ -53,6 +46,7 @@
 
 .menu-item:hover {
   background-color: rgb(208, 208, 208);
+  border-radius: 0.75rem;
 }
 
 .menu-item:active {
