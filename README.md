@@ -1,27 +1,73 @@
-# TodoApp
+# Angular Todo App with Firebase Integration
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+This Angular Todo App is a frontend application built using Angular framework. It is integrated with Firebase to provide database functionality per user. Additionally, it features OAuth for user authentication using Gmail accounts.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- User-friendly interface for managing todos
+- Secure user authentication via Gmail OAuth
+- Real-time database storage using Firebase
+- Responsive design for various devices
 
-## Code scaffolding
+## Live Demo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Check out the live demo of the app at [Todo App Live Demo](https://todo-list-8a8b0.web.app/)
 
-## Build
+## Technologies Used
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Angular
+- Firebase
+- OAuth
+- HTML
+- CSS
+- TypeScript
 
-## Running unit tests
+## Getting Started
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To get a local copy up and running follow these simple steps.
 
-## Running end-to-end tests
+### Prerequisites
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Node.js and npm installed on your local environment
 
-## Further help
+### Installation
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. Clone the repository
+   ```sh
+   git clone https://github.com/your-username/your-repo.git
+    ```
+2. Install NPM packages
+    ```sh
+   npm install
+   ```
+3. Run the app
+   ```sh
+    ng serve
+    ```
+
+## Usage
+
+- Register/Login using your Gmail account
+- Add, edit, or delete todos
+- Todos are automatically saved and synchronized with your account in Firebase
+
+## Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+
+Nicolas Becerra - jnicolasbecerraq@gmail.com
+
+Project Link: [https://github.com/Gharsnull/ToDo-list](https://github.com/Gharsnull/ToDo-list)
+
